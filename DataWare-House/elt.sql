@@ -1,7 +1,7 @@
 -- Transfer cities data from business_hq to business_wh
 INSERT INTO business_wh.cities (city_id, city_name, state, headquarter_addr)
 SELECT city_id, city_name, state, headquarter_addr
-FROM business_hq.cities;
+FROM business_hq.cities; 
 
 -- Transfer customers data from business_hq to business_wh
 -- Note: tourism_guide and post_address come from business_sales
