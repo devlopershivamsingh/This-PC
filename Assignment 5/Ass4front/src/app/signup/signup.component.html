@@ -1,0 +1,46 @@
+<form
+  [formGroup]="signupForm"
+  (ngSubmit)="register()"
+  class="max-w-md mx-auto p-8 bg-white shadow-xl rounded-2xl space-y-6 border border-gray-100"
+>
+  <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Register</h1>
+
+  <div class="space-y-5">
+    <input
+      type="text"
+      placeholder="Name"
+      formControlName="name"
+      class="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 focus:outline-none transition duration-200"
+    />
+
+    <input
+      type="email"
+      placeholder="Email"
+      formControlName="email"
+      class="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 focus:outline-none transition duration-200"
+    />
+
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      class="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 focus:outline-none transition duration-200"
+    />
+
+    <select
+      formControlName="role"
+      class="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 focus:outline-none transition duration-200 appearance-none"
+    >
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+    </select>
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="signupForm.invalid"
+    class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-4 rounded-xl font-semibold hover:from-blue-600 hover:to-indigo-700 transform hover:scale-[1.02] transition-all duration-200 shadow-md disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+  >
+    Sign Up
+  </button>
+</form>

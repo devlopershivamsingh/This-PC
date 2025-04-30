@@ -1,0 +1,31 @@
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="login()"
+  class="max-w-md mx-auto p-8 bg-gradient-to-r from-green-50 to-teal-50 shadow-xl rounded-lg space-y-6"
+>
+  <h1 class="text-3xl font-bold text-center text-teal-700 mb-6">Login Form</h1>
+  
+  <div class="space-y-4">
+    <input
+      type="email"
+      placeholder="Email"
+      formControlName="email"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-3 focus:ring-teal-500 focus:border-teal-500 transition duration-200 focus:outline-none bg-white"
+    />
+
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-3 focus:ring-teal-500 focus:border-teal-500 transition duration-200 focus:outline-none bg-white"
+    />
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="loginForm.invalid"
+    class="w-full bg-gradient-to-r from-teal-600 to-green-600 text-white p-3 rounded-lg font-semibold hover:from-teal-700 hover:to-green-700 transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    Login
+  </button>
+</form>

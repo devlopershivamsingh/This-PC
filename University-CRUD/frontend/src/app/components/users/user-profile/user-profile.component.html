@@ -1,0 +1,54 @@
+<div class="mt-8">
+    <h2 class="text-center text-blue-600 text-2xl font-bold mb-6">User Profile</h2>
+  
+    <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 text-center">
+      <i class="bi bi-person-circle text-blue-600 text-6xl"></i>
+      <h4 class="mt-4 text-xl font-semibold">{{ user.username }}</h4>
+      <p class="text-gray-500">{{ user.email }}</p>
+  
+      <div class="mt-4">
+        <p><strong>User ID:</strong> {{ user.user_id }}</p>
+        <p><strong>Role:</strong>
+          <span class="px-3 py-1 text-white text-sm uppercase rounded"
+            [ngClass]="{
+              'bg-blue-600': user.role === 'admin',
+              'bg-green-600': user.role === 'instructor',
+              'bg-blue-400': user.role === 'student'
+            }">
+            {{ user.role }}
+          </span>
+        </p>
+      </div>
+  
+      <button class="bg-yellow-500 text-white px-4 py-2 mt-4 rounded hover:bg-yellow-600 mr-2"
+        (click)="editProfile()">Update Profile</button>
+      <button class="bg-red-500 text-white px-4 py-2 mt-4 rounded hover:bg-red-600"
+        (click)="confirmDelete()">Delete Profile</button>
+    </div>
+  
+    <!-- Edit Profile Form -->
+    <div *ngIf="isEditing" class="max-w-md mx-auto bg-white shadow-lg p-6 mt-6 rounded-lg">
+      <h4 class="text-center text-blue-600 text-lg font-semibold mb-4">Edit Profile</h4>
+      <form (ngSubmit)="updateProfile()">
+        <div class="mb-4">
+          <label class="block text-gray-700 font-semibold mb-1">Username:</label>
+          <input type="text" class="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300"
+            [(ngModel)]="user.username" name="username" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 font-semibold mb-1">Email:</label>
+          <input type="email" class="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300"
+            [(ngModel)]="user.email" name="email" required>
+        </div>
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Save Changes</button>
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 ml-2"
+          (click)="cancelEdit()">Cancel</button>
+      </form>
+    </div>
+  
+    <!-- Error Message -->
+    <p *ngIf="errorMessage" class="bg-red-100 text-red-700 text-center p-3 mt-4 rounded-md">
+      {{ errorMessage }}
+    </p>
+  </div>
+  

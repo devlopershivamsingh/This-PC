@@ -1,0 +1,58 @@
+body {
+    background-color: #f0f4f8;
+    margin: 0;
+    font-family: sans-serif;
+  }
+  h1 {
+    margin: 1rem 0;
+    color: #333;
+    font-size: 1.5rem;
+  }
+  label {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: #444;
+  }
+  select,
+  input {
+    margin: 0.5rem 0;
+    padding: 0.4rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+  }
+  input{
+    display: block;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    background-color: #fafafa;
+  }
+  table th,
+  table td {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  button {
+    margin: 0.25rem;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  form[formGroup] {
+    display: block;
+    background-color: #ffffff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+  }

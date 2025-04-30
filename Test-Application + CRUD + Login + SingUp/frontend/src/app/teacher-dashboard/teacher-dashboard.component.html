@@ -1,0 +1,82 @@
+<div class="max-w-5xl mx-auto p-8 bg-gray-50 shadow-xl rounded-lg space-y-6">
+  <h1 class="text-3xl font-bold text-center text-indigo-700 mb-6">Teacher Dashboard</h1>
+  
+  <div class="flex justify-center space-x-6">
+    <button (click)="toggleCreateQuestion()" class="bg-indigo-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-200">
+    Create Question
+    </button>
+    <button (click)="toggleViewQuestions()" class="bg-emerald-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition duration-200">
+    View Question Bank
+    </button>
+    <button (click)="monitorTests()" class="bg-orange-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-orange-700 transition duration-200">
+    Monitor Tests
+    </button>
+  </div>
+  
+  <!-- Create Question Form -->
+  <div *ngIf="showCreateForm && !showQuestionBank" class="p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold text-indigo-700 mb-4">Add a New Question</h2>
+    <form [formGroup]="questionForm" (ngSubmit)="submitQuestion()" enctype="multipart/form-data" class="space-y-4">
+    <input type="text" placeholder="Enter Question" formControlName="question_text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    <input type="text" placeholder="Option A" formControlName="option_a" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    <input type="text" placeholder="Option B" formControlName="option_b" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    <input type="text" placeholder="Option C" formControlName="option_c" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    <input type="text" placeholder="Option D" formControlName="option_d" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    <select formControlName="correct_option" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select>
+    <div class="border-2 border-dashed border-gray-300 p-4 rounded-lg">
+      <input type="file" (change)="onFileSelected($event)" class="w-full">
+    </div>
+    <button type="submit" [disabled]="questionForm.invalid" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-200">
+      Add Question
+    </button>
+    </form>
+  
+    <div *ngIf="previewImage" class="mt-4">
+    <h3 class="text-md font-semibold text-gray-700">Image Preview:</h3>
+    <img [src]="previewImage" alt="Preview" class="w-48 rounded-lg mt-2 border border-gray-300">
+    </div>
+  </div>
+  
+  <!-- Question Bank -->
+  <div *ngIf="showQuestionBank && !showCreateForm" class="p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold text-indigo-700 mb-4">Question Bank</h2>
+    <table class="w-full mt-4 border-collapse">
+    <thead>
+      <tr class="bg-indigo-100">
+      <th class="p-3 border border-gray-300 text-indigo-800">Question</th>
+      <th class="p-3 border border-gray-300 text-indigo-800">Options</th>
+      <th class="p-3 border border-gray-300 text-indigo-800">Correct Answer</th>
+      <th class="p-3 border border-gray-300 text-indigo-800">Image</th>
+      <th class="p-3 border border-gray-300 text-indigo-800">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let question of questions" class="text-center hover:bg-gray-50">
+      <td class="p-3 border border-gray-300">{{ question.question_text }}</td>
+      <td class="p-3 border border-gray-300 text-left">
+        <div class="grid grid-cols-1 gap-1">
+        <div><span class="font-semibold">A:</span> {{ question.option_a }}</div>
+        <div><span class="font-semibold">B:</span> {{ question.option_b }}</div>
+        <div><span class="font-semibold">C:</span> {{ question.option_c }}</div>
+        <div><span class="font-semibold">D:</span> {{ question.option_d }}</div>
+        </div>
+      </td>
+      <td class="p-3 border border-gray-300">{{ question.correct_option }}</td>
+      <td class="p-3 border border-gray-300"></td>
+        <img *ngIf="question.image_url" [src]="'http://localhost:5000' + question.image_url" alt="Question Image" class="w-20 h-20 rounded-lg object-cover mx-auto">
+      <td class="p-3 border border-gray-300">
+        <div class="space-y-2">
+        <button (click)="editQuestion(question)" class="bg-amber-500 text-white px-3 py-1 rounded-lg hover:bg-amber-600 w-full transition duration-200">Edit</button>
+        <button (click)="deleteQuestion(question.id)" class="bg-rose-600 text-white px-3 py-1 rounded-lg hover:bg-rose-700 w-full transition duration-200">Delete</button>
+        </div>
+      </td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+  </div>

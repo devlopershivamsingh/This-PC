@@ -1,0 +1,63 @@
+<nav class="bg-blue-600 shadow-lg p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Brand / Home Link -->
+      <a class="text-white font-bold text-lg flex items-center cursor-pointer" routerLink="/dashboard">
+        <i class="bi bi-house-door mr-2"></i> Dashboard
+      </a>
+  
+      <!-- Navbar Links -->
+      <button (click)="logout()" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+        Logout
+      </button>
+    </div>
+  </nav>
+  
+  <div class="mt-8">
+    <h2 class="text-center text-blue-600 text-2xl font-bold mb-6">User Management</h2>
+  
+    <!-- Table Container -->
+    <div class="max-w-5xl mx-auto overflow-hidden shadow-lg rounded-lg bg-white">
+      <table class="w-full text-center border border-gray-300">
+        <thead class="bg-gray-800 text-white">
+          <tr>
+            <th class="p-3">ID</th>
+            <th class="p-3">Name</th>
+            <th class="p-3">Email</th>
+            <th class="p-3">Role</th>
+            <th class="p-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let user of users">
+          <tr  class="odd:bg-gray-100">
+            <td class="p-3 font-bold text-blue-600 text-lg">{{ user.user_id }}</td>
+            <td class="p-3 capitalize font-semibold text-gray-800">{{ user.username }}</td>
+            <td class="p-3 italic text-gray-700">{{ user.email }}</td>
+            <td class="p-3">
+              <span class="px-3 py-1 text-white rounded text-sm uppercase"
+                [ngClass]="{
+                  'bg-blue-600': user.role === 'admin',
+                  'bg-green-600': user.role === 'instructor',
+                  'bg-gray-800': user.role === 'student'
+                }">
+                {{ user.role }}
+              </span>
+            </td>
+            <td class="p-3">
+              <button  class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600" (click)="viewUserProfile(user.user_id)">
+                <i class="bi bi-eye"></i> View
+              </button>
+              <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" (click)="deleteUserProfile(user.user_id)">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Error Message -->
+    <p *ngIf="errorMessage" class="bg-red-100 text-red-700 text-center p-3 mt-4 rounded-md">
+      {{ errorMessage }}
+    </p>
+  </div>
+  

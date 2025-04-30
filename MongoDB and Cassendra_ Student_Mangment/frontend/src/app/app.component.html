@@ -1,0 +1,59 @@
+<div class="container">
+
+  <h2> FeedBacK Form </h2>
+  
+  <form (ngSubmit)="submitForm()">
+    <label>Name:</label>
+    <input type="text" [(ngModel)]="name" name="name" required
+           [class.error]="formErrors['name']" />
+
+    <label>Email:</label>
+    <input type="email" [(ngModel)]="email" name="email" required
+           [class.error]="formErrors['email']" />
+
+    <label>PRN:</label>
+    <input type="text" [(ngModel)]="prn" name="prn" required
+           [class.error]="formErrors['prn']" />
+
+    <label>Phone:</label>
+    <input type="tel" [(ngModel)]="phone" name="phone" required
+           [class.error]="formErrors['phone']" />
+
+    <label>Role:</label>
+    <select [(ngModel)]="role" name="role" required>
+      <option value="student">Student</option>
+      <option value="admin">Admin</option>
+      <option value="teacher">Teacher</option>
+    </select>
+
+    <button type="submit" *ngIf="!editMode">Submit</button>
+    <button type="submit" *ngIf="editMode">Update</button>
+  </form>
+  <p>{{ message }}</p>
+
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>PRN</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.prn}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.role}}</td>
+        <td>
+          <button (click)="loadUserForEdit(user)">Edit</button>
+          <button (click)="deleteUser(user._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

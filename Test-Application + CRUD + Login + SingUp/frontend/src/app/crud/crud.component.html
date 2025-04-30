@@ -1,0 +1,48 @@
+<h1>CRUD Operations</h1>
+
+<label for="table">Select Table:</label>
+<select id="table" [(ngModel)]="selectedTable" (change)="loadRecords()">
+    <option *ngFor="let table of tables" [value]="table">{{ table | titlecase }}</option>
+</select>
+
+<h2>{{ selectedTable | titlecase }} Records</h2>
+<table border="1" *ngIf="records.length > 0">
+    <thead>       
+        <tr>
+            <th *ngFor="let key of records[0] | keyvalue">{{ key.key }}</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let record of records">
+            <td *ngFor="let key of record | keyvalue">{{ key.value }}</td>
+            <td>
+                <button (click)="deleteRecord(record.id || record.dept_id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Add / Update Record for {{ selectedTable | titlecase }}</h2>
+<form [formGroup]="recordForm">
+    <div *ngIf="selectedTable === 'employees'" style="display: block;">
+        <label for="id">ID:</label>
+        <input id="id" formControlName="id" />
+        <label for="name">Name:</label>
+        <input id="name" formControlName="name" />
+        <label for="position">Position:</label>
+        <input id="position" formControlName="position" />
+        <label for="salary">Salary:</label>
+        <input id="salary" formControlName="salary" type="number" step="0.01" />
+    </div>
+    
+    <div *ngIf="selectedTable === 'departments'" style="display: block;">
+        <label for="dept_id">Dept ID:</label>
+        <input id="dept_id" formControlName="dept_id" />
+        <label for="dept_name">Dept Name:</label>
+        <input id="dept_name" formControlName="dept_name" />
+    </div>
+</form>
+
+<button (click)="createRecord()">Create</button>
+<button (click)="updateRecord()">Update</button>

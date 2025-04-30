@@ -1,0 +1,30 @@
+<div class="container mx-auto mt-4 px-4">
+  <h2 class="text-xl font-bold text-blue-700 mb-4">Assigned Courses</h2>
+
+  <!-- Show a message when no courses are assigned -->
+  <div *ngIf="courses.length === 0" class="text-center bg-yellow-100 text-yellow-800 p-3 rounded-md">
+    No courses assigned yet.
+  </div>
+
+  <!-- Table for assigned courses -->
+  <div class="overflow-x-auto">
+    <table *ngIf="courses.length > 0" class="w-full border border-gray-300 rounded-lg shadow-md">
+      <thead class="bg-gray-900 text-white">
+        <tr>
+          <th class="px-4 py-2">Course ID</th>
+          <th class="px-4 py-2">Section</th>
+          <th class="px-4 py-2">Semester</th>
+          <th class="px-4 py-2">Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses" class="border-b hover:bg-gray-100">
+          <td class="px-4 py-2 text-center">{{ course.courseId }}</td>
+          <td class="px-4 py-2 text-center">{{ course.secId }}</td>
+          <td class="px-4 py-2 text-center">{{ course.semester }}</td>
+          <td class="px-4 py-2 text-center">{{ course.year }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

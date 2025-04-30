@@ -1,0 +1,69 @@
+<div class="max-w-2xl mx-auto p-8 bg-white dark:bg-gray-800 shadow-xl rounded-2xl space-y-6 transform transition-all" *ngIf="!testStarted && !viewingScore">
+  <h1 class="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Student Test</h1>
+  <div class="flex justify-center space-x-4"></div>
+    <button (click)="startTest()" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+    Start Test
+    </button>
+    <button (click)="viewscore()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+    View Score
+    </button>
+  </div>
+  
+  <!-- Test Questions -->
+  <div class="max-w-3xl mx-auto p-8 bg-white dark:bg-gray-800 shadow-xl rounded-2xl space-y-6" *ngIf="testStarted">
+  <h2 class="text-2xl font-bold text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Time Left: {{ minutes }}:{{ seconds | number : "2.0-0" }}</h2>
+  
+  <div *ngFor="let question of questions" class="space-y-4 p-6 border border-gray-100 dark:border-gray-700 rounded-xl hover:shadow-md transition-all">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">{{ question.question_text }}</h3>
+    <img
+    *ngIf="question.image_url"
+    [src]="'http://localhost:5000' + question.image_url"
+    alt="Question Image"
+    class="w-full max-w-md mx-auto rounded-xl shadow-md hover:shadow-lg transition-all"
+    />
+  
+    <div class="space-y-3">
+    <label *ngFor="let option of ['A', 'B', 'C', 'D']" class="flex items-center p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+      <input
+      type="radio"
+      [name]="'answer' + question.id"
+      [value]="option"
+      [(ngModel)]="selectedAnswers[question.id]"
+      class="w-5 h-5 text-blue-600 mr-3"
+      />
+      <span class="text-gray-700 dark:text-gray-200">{{ getOptionText(question, option) }}</span>
+    </label>
+    </div>
+  </div>
+  
+  <button (click)="submitTest()" class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white p-4 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+    Submit Test
+  </button>
+  </div>
+  
+  <!-- Score Display -->
+  <div class="max-w-3xl mx-auto p-8 bg-white dark:bg-gray-800 shadow-xl rounded-2xl space-y-6" *ngIf="viewingScore"></div>
+  <h2 class="text-2xl font-bold text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Your Test Submissions</h2>
+  <button (click)="goBack()" class="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-2 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+    Go Back
+  </button>
+  <div class="overflow-hidden shadow-lg rounded-xl border border-gray-200 dark:border-gray-700">
+    <table class="w-full">
+    <thead>
+      <tr class="bg-gray-100 dark:bg-gray-700">
+      <th class="p-3 text-left font-medium text-gray-600 dark:text-gray-300">Test</th>
+      <th class="p-3 text-left font-medium text-gray-600 dark:text-gray-300">Score</th>
+      <th class="p-3 text-left font-medium text-gray-600 dark:text-gray-300">Time Taken</th>
+      <th class="p-3 text-left font-medium text-gray-600 dark:text-gray-300">Submitted On</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+      <tr *ngFor="let submission of scoreData; let i = index" class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+      <td class="p-3 font-medium text-gray-700 dark:text-gray-300">{{ i + 1 }}</td>
+      <td class="p-3 text-gray-700 dark:text-gray-300">{{ submission.score }}</td>
+      <td class="p-3 text-gray-700 dark:text-gray-300">{{ submission.time_taken }}s</td>
+      <td class="p-3 text-gray-700 dark:text-gray-300">{{ formatDate(submission.submitted_at) }}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
